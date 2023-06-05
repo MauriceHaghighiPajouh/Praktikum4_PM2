@@ -4,6 +4,8 @@
  */
 package hawhamburg.pm2_praktikum4;
 
+
+
 /**
  *
  * @author momo
@@ -15,4 +17,8 @@ public class Reader {
     public void read(String File){
         
     }
+    
+    
+    
+  
 }
