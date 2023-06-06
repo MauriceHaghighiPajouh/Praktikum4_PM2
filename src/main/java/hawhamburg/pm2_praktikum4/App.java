@@ -44,14 +44,29 @@ public class App extends Application {
         
 
         //UNTERNEHMEN;STRASSE;PLZ;ORT;GUETERVERKEHR;PERSONENVERKEHR
+        // super schlecht geloest. wollte loop implementieren, aber zu faul
         TableView<Entry> tableView = new TableView<>();
+        TableColumn<Entry,String> colUnternehmen = new TableColumn<>("Unternehmen");
+        TableColumn<Entry,String> colStrasse = new TableColumn<>("Strasse");
+        TableColumn<Entry,String> colPlz = new TableColumn<>("PLZ");
+        TableColumn<Entry,String> colOrt = new TableColumn<>("Ort");
+        TableColumn<Entry,String> colGueterV = new TableColumn<>("Gueterverkehr");
+        TableColumn<Entry,String> colPersonenV = new TableColumn<>("Personenverkehr");
 
-        tableView.setRowFactory(null);
+        
+        
+
+        tableView.getColumns().addAll(colUnternehmen,colStrasse,colPlz,colOrt,colGueterV,colPersonenV);
+        tableView.getColumns().forEach(column->column.setPrefWidth(200));
+
+        
+
+        
         
         borderpane.setCenter(tableView);
         borderpane.setTop(hbox);
 
-        var scene = new Scene(borderpane, 640, 480);
+        var scene = new Scene(borderpane, 1280, 720);
 
         stage.setScene(scene);
 
