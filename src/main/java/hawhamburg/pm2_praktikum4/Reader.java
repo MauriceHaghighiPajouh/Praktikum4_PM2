@@ -22,26 +22,21 @@ public class Reader {
 
     List<Entry> entryList = new ArrayList<>();
 
-
-    
     public List<Entry> getEntryList() {
         return entryList;
     }
 
+    public static final String splitSymbol = ";";
 
-    public static final String splitSymbol=";";
-
-    
-    public void read(String file) throws IOException{
+    public void read(String file) throws IOException {
         boolean headerLine = true;
         String row;
-        
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
-        while((row=br.readLine())!=null){
-            if(headerLine){
-                headerLine=false;
+        while ((row = br.readLine()) != null) {
+            if (headerLine) {
+                headerLine = false;
                 continue;
             }
             String[] data = row.split(splitSymbol);
@@ -49,31 +44,15 @@ public class Reader {
 
         }
         br.close();
-        
-        
 
-
-        
     }
 
-   
-    public void createEntry(String[]data ){
+    public void createEntry(String[] data) {
 
-        Entry entry = new Entry(data[0],data[1],data[2],data[3],data[4],data[5]);
-        
+        Entry entry = new Entry(data[0], data[1], data[2], data[3], data[4], data[5]);
+
         entryList.add(entry);
-       
-
-        
-        
-
-
 
     }
 
-    
-    
-    
-    
-  
 }
