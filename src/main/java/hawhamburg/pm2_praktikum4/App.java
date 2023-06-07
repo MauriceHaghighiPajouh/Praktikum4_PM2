@@ -55,19 +55,7 @@ public class App extends Application {
         }
         );
         
-          cbGueter.setOnAction(e -> {
-            gueter = cbGueter.isSelected();
-            
-            
-        });
-
-        cbPerso.setOnAction(e -> {
-            perso = cbPerso.isSelected();
-            
-           
-        });
-        
-        
+    
 
         hbox.getChildren().addAll(label, combobox, textfield, checkbox, cbGueter, cbPerso);
 
@@ -137,6 +125,34 @@ public class App extends Application {
             tableView.setItems(newList);
 
         });
+        
+        cbGueter.selectedProperty().addListener((observable,oldValue,newValue)
+        ->{
+        gueter = cbGueter.isSelected();
+        ObservableList<Entry> newList = search.search(list, textfield.getText(), caseSensitive, gueter, perso);
+        tableView.setItems(newList);
+        
+        
+        }
+        
+        
+        
+        
+        );
+        
+         cbPerso.selectedProperty().addListener((observable,oldValue,newValue)
+        ->{
+        perso = cbPerso.isSelected();
+        ObservableList<Entry> newList = search.search(list, textfield.getText(), caseSensitive, gueter, perso);
+        tableView.setItems(newList);
+        
+        
+        }
+        
+        
+        
+        
+        );
 
         borderpane.setCenter(tableView);
         borderpane.setTop(hbox);
