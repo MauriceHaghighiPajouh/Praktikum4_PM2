@@ -12,6 +12,6 @@ import javafx.collections.ObservableList;
  */
 public interface SearchStrategy {
     
-   ObservableList<Entry> search(ObservableList<Entry> entries, String keyword,boolean cSens,String category,boolean Gueter,boolean Personen);
+   ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens,boolean Gueter,boolean Personen);
     
 }

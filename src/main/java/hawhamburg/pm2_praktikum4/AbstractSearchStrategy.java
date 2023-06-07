@@ -7,18 +7,23 @@ package hawhamburg.pm2_praktikum4;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+
 /**
  *
  * @author momo
  */
-public class PlzSearchStrategy implements SearchStrategy {
+public abstract class AbstractSearchStrategy implements SearchStrategy {
 
-    @Override
-    public ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens,boolean Gueter,boolean Personen) {
-        ObservableList<Entry> result = FXCollections.observableArrayList();
+    
+    
+@Override
+public ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens,boolean Gueter,boolean Personen){
+    
+    
+     ObservableList<Entry> result = FXCollections.observableArrayList();
 
         for (Entry entry : entries) {
-            String value = entry.getPLZ();
+            String value = entry.getUnternehmen();
             if (!cSens) {
                 keyword = keyword.toLowerCase();
                 value = value.toLowerCase();
@@ -30,4 +35,6 @@ public class PlzSearchStrategy implements SearchStrategy {
 
         return result;
     }
+    
 }
+

@@ -4,7 +4,6 @@
  */
 package hawhamburg.pm2_praktikum4;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -13,16 +12,22 @@ import javafx.collections.ObservableList;
  */
 public class Search   {
     
-    private SearchStrategy strat;
+    private SearchStrategy strat = new  UnternehmenSearchStrategy();
 
 
-    public ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens,String category,boolean Gueter,boolean Personen) {
+    public ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens,boolean Gueter,boolean Personen) {
         
-        return strat.search(entries, keyword, cSens, category, Gueter, Personen);
+        return strat.search(entries, keyword, cSens, Gueter, Personen);
         
         
     }
     
+    public void setSearchStrategy(SearchStrategy s ){
+        this.strat = s;
+    }
+    
+    
+   
   
         
     }

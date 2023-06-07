@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 public class GueterVerkehrSearchStrategy implements SearchStrategy {
 
     @Override
-    public ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens, String category, boolean Gueter, boolean Personen) {
+    public ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens,boolean Gueter,boolean Personen) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

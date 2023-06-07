@@ -45,9 +45,13 @@ public class App extends Application {
 
         combobox.getItems().addAll("Unternehmen", "Strasse", "PLZ", "Ort");
         combobox.setValue("Unternehmen");
+        
+        
+        
 
         TextField textfield = new TextField();
         Search search = new Search();
+        
 
         checkbox.setOnAction(e
                 -> {
@@ -91,6 +95,26 @@ public class App extends Application {
         tableView.getColumns().forEach(column -> column.setPrefWidth(200));
 
         Reader reader = new Reader();
+        
+        combobox.setOnAction(e->{
+            String selected = combobox.getValue();
+            switch(selected){
+                case "Unternehmen":
+                    search.setSearchStrategy(new UnternehmenSearchStrategy());
+                    break;
+                case "Strasse":
+                    search.setSearchStrategy(new StrasseSearchStrategy());
+                    break;
+                case "PLZ":
+                    search.setSearchStrategy(new PlzSearchStrategy());
+                    break;
+                case "Ort":
+                    search.setSearchStrategy(new OrtSearchStrategy());
+                    break;
+            }
+            
+            
+        });
 
         ObservableList<Entry> list = FXCollections.observableArrayList();
 
@@ -111,8 +135,8 @@ public class App extends Application {
 
         textfield.textProperty().addListener((observable, oldValue, newValue)
                 -> {
-            String ca = combobox.getValue();
-            ObservableList<Entry> newList = search.search(list, newValue, caseSensitive, ca, gueter, perso); 
+            
+            ObservableList<Entry> newList = search.search(list, newValue, caseSensitive, gueter, perso); 
             tableView.setItems(newList);
 
         });
@@ -127,5 +151,7 @@ public class App extends Application {
         stage.show();
 
     }
+    
+    
 
 }
