@@ -31,24 +31,33 @@ public class App extends Application {
     public void start(Stage stage) {
         
 
-        Label label = new Label("Sortieren nach: ");
+        Label label = new Label("Suchen nach: ");
         BorderPane borderpane = new BorderPane();
         CheckBox checkbox = new CheckBox("Groß- / Kleinschreibung beachten");
         label.setFont(new Font("Arial", 18));
+        CheckBox cbGueter = new CheckBox("Nur Gueterverkehr anzeigen");
+        CheckBox cbPerso = new CheckBox("Nur Personenverkehr anzeigen");
+        
 
         HBox hbox = new HBox();
 
-        ComboBox combobox = new ComboBox();
+        ComboBox<String> combobox = new ComboBox<>();
+        
+        combobox.getItems().addAll("Unternehmen","Strasse","PLZ","Ort","Gueterverkehr","Personenverkehr");
+        combobox.setValue("Unternehmen");
+        
+        
         TextField textfield = new TextField();
+        Search search = new Search();
+        
+       
         
         checkbox.setOnAction(e->
         {caseSensitive=checkbox.isSelected();}
         );
 
-        hbox.getChildren().add(label);
-        hbox.getChildren().add(combobox);
-        hbox.getChildren().add(textfield);
-        hbox.getChildren().add(checkbox);
+       
+        hbox.getChildren().addAll(label,combobox,textfield,checkbox,cbGueter,cbPerso);
 
         // UNTERNEHMEN;STRASSE;PLZ;ORT;GUETERVERKEHR;PERSONENVERKEHR
         // super schlecht geloest. wollte loop implementieren, aber zu faul
@@ -89,6 +98,21 @@ public class App extends Application {
            
             e.printStackTrace();
         }
+        
+        
+        
+         textfield.textProperty().addListener((observable,oldValue,newValue)->
+        {
+            String ca = combobox.getValue();
+            ObservableList<Entry> newList = search.search(list, newValue, caseSensitive, ca,true,true); // NEEDS FIX !!
+            tableView.setItems(newList);
+        
+        
+        
+        
+        
+        
+        });
 
         borderpane.setCenter(tableView);
         borderpane.setTop(hbox);
