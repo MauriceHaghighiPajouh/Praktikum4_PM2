@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
  *
  * @author momo
  */
-public interface SearchInterface {
+public interface SearchStrategy {
     
    ObservableList<Entry> search(ObservableList<Entry> entries, String keyword,boolean cSens,String category,boolean Gueter,boolean Personen);
     

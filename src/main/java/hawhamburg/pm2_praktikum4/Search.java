@@ -11,49 +11,17 @@ import javafx.collections.ObservableList;
  *
  * @author momo
  */
-public class Search implements SearchInterface {
+public class Search   {
+    
+    private SearchStrategy strat;
 
-    @Override
+
     public ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens,String category,boolean Gueter,boolean Personen) {
         
-        ObservableList<Entry> updatedList = FXCollections.observableArrayList();
+        return strat.search(entries, keyword, cSens, category, Gueter, Personen);
         
-        for(Entry entry:entries){
-            String value = getCatValue(entry,category);
-            if(!cSens){
-                keyword=keyword.toLowerCase();
-                value=value.toLowerCase();
-            }
-            if(value.contains(keyword)){
-                updatedList.add(entry);
-            }
-        }
-        return updatedList;
         
     }
-    
-    public String getCatValue(Entry entry, String cat){
-        
-        switch(cat){
-            case "Unternehmen":
-                return entry.getUnternehmen();
-            case "Strasse":
-                return entry.getStrasse();
-            case "PLZ":
-                return entry.getPLZ();
-            case "Ort":
-                return entry.getOrt();
-            case "Gueterverkehr":
-                return entry.getGueterverkehr();
-            case "Personenverkehr":
-                return entry.getPersonenverkehr();
-            default:
-                return "";
-                
-            
-        }
-    }
-    
     
   
         
