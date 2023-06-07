@@ -17,17 +17,21 @@ public class UnternehmenSearchStrategy implements SearchStrategy {
     public ObservableList<Entry> search(ObservableList<Entry> entries, String keyword, boolean cSens,boolean Gueter,boolean Personen) {
         
         ObservableList<Entry> result = FXCollections.observableArrayList();
-
+        
         for (Entry entry : entries) {
+            
             String value = entry.getUnternehmen();
             if (!cSens) {
                 keyword = keyword.toLowerCase();
                 value = value.toLowerCase();
             }
             if (value.contains(keyword)) {
-                result.add(entry);
+                
+                 result.add(entry);
             }
         }
+        
+        
 
         return result;
     }

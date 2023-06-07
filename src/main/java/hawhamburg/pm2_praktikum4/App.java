@@ -36,8 +36,8 @@ public class App extends Application {
         BorderPane borderpane = new BorderPane();
         CheckBox checkbox = new CheckBox("Groß- / Kleinschreibung beachten");
         label.setFont(new Font("Arial", 18));
-        CheckBox cbGueter = new CheckBox("Nur Gueterverkehr anzeigen");
-        CheckBox cbPerso = new CheckBox("Nur Personenverkehr anzeigen");
+        CheckBox cbGueter = new CheckBox("Gueterverkehr anzeigen");
+        CheckBox cbPerso = new CheckBox("Personenverkehr anzeigen");
 
         HBox hbox = new HBox();
 
@@ -45,32 +45,29 @@ public class App extends Application {
 
         combobox.getItems().addAll("Unternehmen", "Strasse", "PLZ", "Ort");
         combobox.setValue("Unternehmen");
-        
-        
-        
 
         TextField textfield = new TextField();
         Search search = new Search();
-        
 
         checkbox.setOnAction(e
                 -> {
             caseSensitive = checkbox.isSelected();
         }
         );
+        
+          cbGueter.setOnAction(e -> {
+            gueter = cbGueter.isSelected();
+            
+            
+        });
 
-        cbGueter.setOnAction(e
-                -> {
-            gueter = checkbox.isSelected();
-        }
-        );
+        cbPerso.setOnAction(e -> {
+            perso = cbPerso.isSelected();
+            
+           
+        });
         
         
-        cbPerso.setOnAction(e
-                -> {
-            perso = checkbox.isSelected();
-        }
-        );
 
         hbox.getChildren().addAll(label, combobox, textfield, checkbox, cbGueter, cbPerso);
 
@@ -95,10 +92,13 @@ public class App extends Application {
         tableView.getColumns().forEach(column -> column.setPrefWidth(200));
 
         Reader reader = new Reader();
-        
-        combobox.setOnAction(e->{
+        ObservableList<Entry> list = FXCollections.observableArrayList();
+
+      
+
+        combobox.setOnAction(e -> {
             String selected = combobox.getValue();
-            switch(selected){
+            switch (selected) {
                 case "Unternehmen":
                     search.setSearchStrategy(new UnternehmenSearchStrategy());
                     break;
@@ -112,11 +112,8 @@ public class App extends Application {
                     search.setSearchStrategy(new OrtSearchStrategy());
                     break;
             }
-            
-            
-        });
 
-        ObservableList<Entry> list = FXCollections.observableArrayList();
+        });
 
         try {
             reader.read(file);
@@ -135,8 +132,8 @@ public class App extends Application {
 
         textfield.textProperty().addListener((observable, oldValue, newValue)
                 -> {
-            
-            ObservableList<Entry> newList = search.search(list, newValue, caseSensitive, gueter, perso); 
+
+            ObservableList<Entry> newList = search.search(list, newValue, caseSensitive, gueter, perso);
             tableView.setItems(newList);
 
         });
@@ -151,7 +148,9 @@ public class App extends Application {
         stage.show();
 
     }
+
     
-    
+
+  
 
 }

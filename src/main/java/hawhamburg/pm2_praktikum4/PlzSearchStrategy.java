@@ -18,6 +18,7 @@ public class PlzSearchStrategy implements SearchStrategy {
         ObservableList<Entry> result = FXCollections.observableArrayList();
 
         for (Entry entry : entries) {
+            
             String value = entry.getPLZ();
             if (!cSens) {
                 keyword = keyword.toLowerCase();
