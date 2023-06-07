@@ -26,10 +26,11 @@ public class App extends Application {
 
     private String file = "evu_brd_gekuerzt.csv";
     private boolean caseSensitive;
+    private boolean gueter;
+    private boolean perso;
 
     @Override
     public void start(Stage stage) {
-        
 
         Label label = new Label("Suchen nach: ");
         BorderPane borderpane = new BorderPane();
@@ -37,27 +38,37 @@ public class App extends Application {
         label.setFont(new Font("Arial", 18));
         CheckBox cbGueter = new CheckBox("Nur Gueterverkehr anzeigen");
         CheckBox cbPerso = new CheckBox("Nur Personenverkehr anzeigen");
-        
 
         HBox hbox = new HBox();
 
         ComboBox<String> combobox = new ComboBox<>();
-        
-        combobox.getItems().addAll("Unternehmen","Strasse","PLZ","Ort","Gueterverkehr","Personenverkehr");
+
+        combobox.getItems().addAll("Unternehmen", "Strasse", "PLZ", "Ort");
         combobox.setValue("Unternehmen");
-        
-        
+
         TextField textfield = new TextField();
         Search search = new Search();
-        
-       
-        
-        checkbox.setOnAction(e->
-        {caseSensitive=checkbox.isSelected();}
+
+        checkbox.setOnAction(e
+                -> {
+            caseSensitive = checkbox.isSelected();
+        }
         );
 
-       
-        hbox.getChildren().addAll(label,combobox,textfield,checkbox,cbGueter,cbPerso);
+        cbGueter.setOnAction(e
+                -> {
+            gueter = checkbox.isSelected();
+        }
+        );
+        
+        
+        cbPerso.setOnAction(e
+                -> {
+            perso = checkbox.isSelected();
+        }
+        );
+
+        hbox.getChildren().addAll(label, combobox, textfield, checkbox, cbGueter, cbPerso);
 
         // UNTERNEHMEN;STRASSE;PLZ;ORT;GUETERVERKEHR;PERSONENVERKEHR
         // super schlecht geloest. wollte loop implementieren, aber zu faul
@@ -85,33 +96,25 @@ public class App extends Application {
 
         try {
             reader.read(file);
-            
+
             reader.getEntryList()
                     .forEach(entry -> list
-                            .add(new Entry(entry.getUnternehmen(), entry.getStrasse(), entry.getPLZ(), entry.getOrt(),
-                                    entry.getGueterverkehr(), entry.getPersonenverkehr())));
-                                   
-            
+                    .add(new Entry(entry.getUnternehmen(), entry.getStrasse(), entry.getPLZ(), entry.getOrt(),
+                            entry.getGueterverkehr(), entry.getPersonenverkehr())));
+
             tableView.setItems(list);
 
         } catch (IOException e) {
-           
+
             e.printStackTrace();
         }
-        
-        
-        
-         textfield.textProperty().addListener((observable,oldValue,newValue)->
-        {
+
+        textfield.textProperty().addListener((observable, oldValue, newValue)
+                -> {
             String ca = combobox.getValue();
-            ObservableList<Entry> newList = search.search(list, newValue, caseSensitive, ca,true,true); // NEEDS FIX !!
+            ObservableList<Entry> newList = search.search(list, newValue, caseSensitive, ca, gueter, perso); 
             tableView.setItems(newList);
-        
-        
-        
-        
-        
-        
+
         });
 
         borderpane.setCenter(tableView);
