@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
  */
 public class Reader {
 
-    List<Entry> entryList = new ArrayList<>();
+    private List<Entry> entryList = new ArrayList<>();
 
     public List<Entry> getEntryList() {
         return entryList;

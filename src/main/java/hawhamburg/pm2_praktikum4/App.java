@@ -25,9 +25,11 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private String file = "evu_brd_gekuerzt.csv";
+    private boolean caseSensitive;
 
     @Override
     public void start(Stage stage) {
+        
 
         Label label = new Label("Sortieren nach: ");
         BorderPane borderpane = new BorderPane();
@@ -38,6 +40,10 @@ public class App extends Application {
 
         ComboBox combobox = new ComboBox();
         TextField textfield = new TextField();
+        
+        checkbox.setOnAction(e->
+        {caseSensitive=checkbox.isSelected();}
+        );
 
         hbox.getChildren().add(label);
         hbox.getChildren().add(combobox);
@@ -70,15 +76,17 @@ public class App extends Application {
 
         try {
             reader.read(file);
+            
             reader.getEntryList()
                     .forEach(entry -> list
                             .add(new Entry(entry.getUnternehmen(), entry.getStrasse(), entry.getPLZ(), entry.getOrt(),
                                     entry.getGueterverkehr(), entry.getPersonenverkehr())));
-
+                                   
+            
             tableView.setItems(list);
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+           
             e.printStackTrace();
         }
 
