@@ -11,12 +11,12 @@ import java.io.IOException;
  * @author momo
  */
 public class Main {
-
+    //ausgelagerte main methode
     public static void main(String[] args) {
 
         App.launch(App.class, args);
 
-        Reader reader = new Reader();
+        
 
     }
 
